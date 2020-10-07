@@ -7,7 +7,8 @@ use Hackathon\Game\Result;
 /**
  * Class TeltiPlayers
  * @package Hackathon\PlayerIA
- * @author YOUR NAME HERE
+ * @author Anojhan SIVANANTHAN
+ Je donne la decision par rapport a la moyenne.
  */
 class TeltiPlayer extends Player
 {
@@ -17,31 +18,38 @@ class TeltiPlayer extends Player
 
     public function getChoice()
     {
-        // -------------------------------------    -----------------------------------------------------
-        // How to get my Last Choice           ?    $this->result->getLastChoiceFor($this->mySide) -- if 0 (first round)
-        // How to get the opponent Last Choice ?    $this->result->getLastChoiceFor($this->opponentSide) -- if 0 (first round)
-        // -------------------------------------    -----------------------------------------------------
-        // How to get my Last Score            ?    $this->result->getLastScoreFor($this->mySide) -- if 0 (first round)
-        // How to get the opponent Last Score  ?    $this->result->getLastScoreFor($this->opponentSide) -- if 0 (first round)
-        // -------------------------------------    -----------------------------------------------------
-        // How to get all the Choices          ?    $this->result->getChoicesFor($this->mySide)
-        // How to get the opponent Last Choice ?    $this->result->getChoicesFor($this->opponentSide)
-        // -------------------------------------    -----------------------------------------------------
-        // How to get my Last Score            ?    $this->result->getLastScoreFor($this->mySide)
-        // How to get the opponent Last Score  ?    $this->result->getLastScoreFor($this->opponentSide)
-        // -------------------------------------    -----------------------------------------------------
-        // How to get the stats                ?    $this->result->getStats()
-        // How to get the stats for me         ?    $this->result->getStatsFor($this->mySide)
-        //          array('name' => value, 'score' => value, 'friend' => value, 'foe' => value
-        // How to get the stats for the oppo   ?    $this->result->getStatsFor($this->opponentSide)
-        //          array('name' => value, 'score' => value, 'friend' => value, 'foe' => value
-        // -------------------------------------    -----------------------------------------------------
-        // How to get the number of round      ?    $this->result->getNbRound()
-        // -------------------------------------    -----------------------------------------------------
-        // How can i display the result of each round ? $this->prettyDisplay()
-        // -------------------------------------    -----------------------------------------------------
+        
 
+    	$scis = $this->result->getStatsFor($this->opponentSide)['scissors'];
+    	$pap = $this->result->getStatsFor($this->opponentSide)['paper'];
+    	$roc = $this->result->getStatsFor($this->opponentSide)['rock'];
 
+    	if ($scis > $pap)
+    	{
+    		if ($scis > $roc)
+	    	{
+	    		return parent::rockChoice();
+	    	}
+    	}
+    	
+    	if ($pap > $scis)
+    	{
+    		if ($pap > $roc)
+	    	{
+	    		return parent::scissorsChoice();
+	    	}
+    	}
+    	if ($roc > $scis)
+    	{
+    		if ($roc > $pap)
+	    	{
+	    		return parent::paperChoice();
+	    	}
+    	}
+    	//print_r($this->result->getChoicesFor($this->opponentSide)[1]);
+    	
+		
+    	
         return parent::rockChoice();
 
     }
